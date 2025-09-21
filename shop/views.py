@@ -11,3 +11,6 @@ def helloworld(request):
     all_products = Product.objects.all()
     return render(request,'index.html',{'products':all_products})
     # return HttpResponse(all_products)
+
+def about(request):
+    return render(request,'about.html')

@@ -26,6 +26,13 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url "home" %}">خانه</a></li>
                         <li class="nav-item"><a class="nav-link" href="about/">درباره ما</a></li>
+                        
+                        {% if user.is_authenticated %}
+                        <li class="nav-item"><a class="nav-link" href="{% url "logout" %}">logout</a></li>
+                        {% else %}
+                        <li class="nav-item"><a class="nav-link" href="login/">login</a></li>
+                        {% endif %}
+                        
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">فروشگاه</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -47,10 +54,18 @@
             </div>
         </nav>
 
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
         {% block content %}
         
         {% endblock  %} 
-
+        <br><br>
         <!-- Footer-->
         <footer class="py-5 bg-dark">
             <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>

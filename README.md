@@ -79,11 +79,11 @@ E-commerce-Website/
 └── startbootstrap-shop-homepage-gh-pages/  # UI template
 ```
 
----
+<!-- ---
 
 ## 📸 Screenshots
 
-*(Add here some screenshots of your home page, product page, and cart — this makes your README super attractive!)*
+*(Add here some screenshots of your home page, product page, and cart — this makes your README super attractive!)* -->
 
 ---
 
@@ -98,11 +98,11 @@ Contributions are welcome!
 
 ---
 
-## 📜 License
+<!-- ## 📜 License
 
 This project is licensed under the **MIT License** – feel free to use and modify it.
 
----
+--- -->
 
 ## 📧 Contact
 

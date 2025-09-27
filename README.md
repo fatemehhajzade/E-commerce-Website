@@ -9,13 +9,13 @@ This project demonstrates the core features of an online store: browsing, search
 
 ## ✨ Features
 
-✅ User registration, login, profile management
-✅ Browse products by category
-✅ Product detail pages with images
-✅ Search functionality 🔍
-✅ Shopping cart 🛒 & order placement
-✅ Admin panel to manage products, categories, and orders
-✅ Responsive UI (works on desktop & mobile) 📱💻
+* ✅ User registration, login, profile management
+* ✅ Browse products by category
+* ✅ Product detail pages with images
+* ✅ Search functionality 🔍
+* ✅ Shopping cart 🛒 & order placement
+* ✅ Admin panel to manage products, categories, and orders
+* ✅ Responsive UI (works on desktop & mobile) 📱💻
 
 ---
 

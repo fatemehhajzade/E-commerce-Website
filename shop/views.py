@@ -2,6 +2,8 @@ from django.shortcuts import render,HttpResponse,redirect
 from .models import Product
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+# from django.contrib.auth.forms import UserCreationForm
+# from django import forms
 from django.contrib import messages
 
 def helloworld(request):
@@ -42,20 +44,24 @@ def logout_user(request):
 
 def signup_user(request):
     if request.method == "POST":
-        username = request.POST.get['username']
-        email = request.POST.get['email']
-        password1 = request.POST.get['password']
-        password2 = request.POST.get['password']
+        first_name = request.POST.get("firstname")
+        last_name = request.POST.get("lastname")
+        username = request.POST.get("username")
+        email = request.POST.get("email")
+        password1 = request.POST.get("password1")
+        password2 = request.POST.get("password2")
 
-
-        user = authenticate(request, username = username, password = password)
-
-        if user is not None:
-            login(request, user)
-            messages.success(request, ("Logged in successfully!"))
-            return redirect("home")
+        if password1 != password2:
+            messages.error(request, "رمز عبورها یکسان نیستند.")
+        elif User.objects.filter(username=username).exists():
+            messages.error(request, "این نام کاربری قبلاً ثبت شده است.")
+        elif User.objects.filter(email=email).exists():
+            messages.error(request, "این ایمیل قبلاً ثبت شده است.")
         else:
-            messages.success(request, ("Error!"))
-            return redirect("login")
-    else:
-        return render(request,'login.html')
+            user = User.objects.create_user(first_name=first_name, last_name=last_name, 
+                                            username=username, email=email, password=password1)
+            # login(request, user)  # بعد از ثبت‌نام خودکار لاگین بشه
+            messages.success(request, "ثبت‌نام با موفقیت انجام شد.")
+            return redirect("home")
+
+    return render(request, "signup.html")

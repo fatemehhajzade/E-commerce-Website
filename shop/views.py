@@ -65,3 +65,7 @@ def signup_user(request):
             return redirect("home")
 
     return render(request, "signup.html")
+
+def product(request,pk):
+    products = Product.objects.get(id = pk)
+    return render(request,'product.html',{'product':product})

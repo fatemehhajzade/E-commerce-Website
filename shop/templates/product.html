@@ -1,19 +1,26 @@
 {% extends "base.html" %}
 {% block content %}
+
 <div class="container px-4 px-lg-5 mt-5" dir="rtl">
     <div class="row">
         <!-- تصویر محصول -->
         <div class="col-md-6">
-            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-fluid rounded shadow">
+            <img src="{{ product.picture.url }}" alt="{{ product.name }}" class="img-fluid rounded shadow">
         </div>
 
         <!-- جزئیات محصول -->
         <div class="col-md-6">
             <h2 class="mb-3">{{ product.name }}</h2>
             <p class="text-muted">دسته‌بندی: {{ product.category }}</p>
+
+            {% if product.is_sale %}
+            <s class="text-success mb-3">{{ product.price }} تومان</s>
+            <h4 class="text-success mb-3">{{ product.sale_price }} تومان</h4>
+            {% else %}
             <h4 class="text-success mb-3">{{ product.price }} تومان</h4>
-            
-            <p class="mb-4">{{ product.description }}</p>
+            {% endif %}
+
+            <p class="mb-4">{{ product.description }}Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.</p>
             
             <form method="post" action="#">
                 {% csrf_token %}

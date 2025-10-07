@@ -26,7 +26,7 @@
                 {% csrf_token %}
                 <div class="d-flex">
                     <input type="number" name="quantity" value="1" min="1" class="form-control w-25 me-2">
-                    <button type="submit" class="btn btn-dark">
+                    <button type="submit" class="btn btn-dark" value="{{ product.id }}" id="add-cart">
                         افزودن به سبد خرید
                     </button>
                 </div>
@@ -34,4 +34,13 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).on("click","#add_cart", function(e){
+        e.preventDefault;
+        $.ajax({
+            type:"POST",
+            url:"{% url 'cart_add' %}"
+        })
+    })
+</script>
 {% endblock %}

@@ -1,18 +1,70 @@
-{% extends "base.html" %}
-{% block content %}
-{% load static %}
+{% extends 'base.html' %}
 {% load humanize %}
+{% block content %}
 
-    
-    <body dir="rtl">
-        <!-- Header-->
-        <header class="bg-dark py-5">
-            <div class="container px-4 px-lg-5 my-5">
-                <div class="text-center text-white">
-                    <h1 class="display-4 fw-bolder">سبد خرید شما</h1>
-                    <p class="lead fw-normal text-white-50 mb-0">اینجا فروشگاه من است.</p>
-                </div>
-            </div>
-        </header>
+<!-- Header-->
+<header class="bg-dark py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">سبد خرید شما🛒</h1>
+            <p class="lead fw-normal text-white-50 mb-0">اینجا فروشگاه من است.</p>
+        </div>
+    </div>
+</header>
 
-{% endblock  %}
+<div class="container mt-5" dir="rtl">
+
+  {% if cart_products %}
+  <div class="table-responsive">
+    <table class="table align-middle table-bordered text-center">
+      <thead class="table-success">
+        <tr>
+          <th scope="col">ردیف</th>
+          <th scope="col">تصویر</th>
+          <th scope="col">نام محصول</th>
+          <th scope="col">قیمت واحد</th>
+          <th scope="col">تعداد</th>
+          <th scope="col">جمع کل</th>
+          <th scope="col">حذف</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in cart_products %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td>
+            <img src="{{ item.picture.url }}" width="90" height="60" class="rounded">
+          </td>
+          <td>{{ item.name }}</td>
+          <td>{{ item.price }} تومان</td>
+          <td>
+            <input type="number" min="1" value="{{ item.quantity }}"
+                   class="form-control form-control-sm text-center w-50 m-auto update-qty"
+                   data-product="{{ item.product.id }}">
+          </td>
+          <td>{{ item.price }} تومان</td>
+          <td>
+            <button class="btn btn-sm btn-outline-danger delete-item"
+                    data-product="{{ item.product.id }}">
+              حذف
+            </button>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+<!--مجموع کل و ادامه فرایند خرید-->
+
+  {% else %}
+  <div class="alert alert-warning text-center mt-5">
+    🛍️ سبد خرید شما خالی است!
+    <a href="{% url 'home' %}" class="alert-link">بازگشت به فروشگاه</a>
+  </div>
+  {% endif %}
+</div>
+
+
+
+{% endblock %}

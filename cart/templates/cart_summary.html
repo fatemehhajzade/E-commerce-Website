@@ -14,7 +14,7 @@
 
 <div class="container mt-5" dir="rtl">
 
-  {% if cart_products %}
+  {% if cart_items %}
   <div class="table-responsive">
     <table class="table align-middle table-bordered text-center">
       <thead class="table-success">
@@ -29,20 +29,20 @@
         </tr>
       </thead>
       <tbody>
-        {% for item in cart_products %}
+        {% for item in cart_items %}
         <tr>
           <td>{{ forloop.counter }}</td>
           <td>
-            <img src="{{ item.picture.url }}" width="90" height="60" class="rounded">
+            <img src="{{ item.product.picture.url }}" width="90" height="60" class="rounded">
           </td>
-          <td>{{ item.name }}</td>
-          <td>{{ item.price }} تومان</td>
+          <td>{{ item.product.name }}</td>
+          <td>{{ item.product.price }} تومان</td>
           <td>
             <input type="number" min="1" value="{{ item.quantity }}"
                    class="form-control form-control-sm text-center w-50 m-auto update-qty"
-                   data-product="{{ item.product.id }}">
+                   data-product="{{ qty.quantity }}">
           </td>
-          <td>{{ item.price }} تومان</td>
+          <td>{{ item.product.price }} تومان</td>
           <td>
             <button class="btn btn-sm btn-outline-danger delete-item"
                     data-product="{{ item.product.id }}">

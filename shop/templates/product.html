@@ -25,7 +25,7 @@
             <form method="post" action="#">
                 {% csrf_token %}
                 <div class="d-flex">
-                    <input type="number" name="quantity" value="1" min="1" class="form-control w-25 me-2">
+                    <input type="number" name="quantity" id="cart-qty" value="1" min="1" class="form-control w-25 me-2">
                     <button type="button" class="btn btn-dark" value='{{ product.id }}' id='add-cart'>
                         افزودن به سبد خرید
                     </button>
@@ -45,6 +45,7 @@
             url:'{% url 'cart_add' %}',
             data:{
                 product_id:$('#add-cart').val(),
+                product_qty: $('#cart-qty').val(),
                 csrfmiddlewaretoken:'{{ csrf_token }}',
                 action:'post'
             },

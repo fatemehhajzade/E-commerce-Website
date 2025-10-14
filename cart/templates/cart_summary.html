@@ -14,7 +14,7 @@
 
 <div class="container mt-5" dir="rtl">
 
-  {% if cart_items %}
+  {% if cart_products %}
   <div class="table-responsive">
     <table class="table align-middle table-bordered text-center">
       <thead class="table-success">
@@ -29,20 +29,30 @@
         </tr>
       </thead>
       <tbody>
-        {% for item in cart_items %}
+        {% for item in cart_products %}
         <tr>
           <td>{{ forloop.counter }}</td>
           <td>
-            <img src="{{ item.product.picture.url }}" width="90" height="60" class="rounded">
+            <img src="{{ item.picture.url }}" width="90" height="60" class="rounded">
           </td>
-          <td>{{ item.product.name }}</td>
-          <td>{{ item.product.price }} تومان</td>
+          <td>{{ item.name }}</td>
+          <td>{{ item.price }} تومان</td>
           <td>
-            <input type="number" min="1" value="{{ item.quantity }}"
-                   class="form-control form-control-sm text-center w-50 m-auto update-qty"
-                   data-product="{{ qty.quantity }}">
+            <div class="d-flex justify-content-center align-items-center">
+
+                <input type="number" id="input{{item.id}}"
+                   {% for key,value in quantities.items %}
+                    {% if key == item.id|slugify %}
+                   value="{{ value }}"
+                    {% endif %}
+                   {% endfor %}
+                   class="form-control form-control-sm text-center mx-2 update-qty" style="width: 50px;">
+
+              <button class="btn btn-outline-secondary btn-sm decrease-qty update-cart"
+                      data-index="{{ item.id }}">ویرایش</button>
+            </div>
           </td>
-          <td>{{ item.product.price }} تومان</td>
+          <td>{{ item.price }} تومان</td>
           <td>
             <button class="btn btn-sm btn-outline-danger delete-item"
                     data-product="{{ item.product.id }}">
@@ -65,6 +75,29 @@
   {% endif %}
 </div>
 
+<script>
+    $(document).on('click','.update-cart', function(e){
+        e.preventDefault();
+        var productid = $(this).data('index');
+        var newQty = $('#input' + productid).val();
+        $.ajax({
+            type:'POST',
+            url:'{% url 'cart_update' %}',
+            data:{
+                product_id: productid,
+                product_qty: newQty,
+                csrfmiddlewaretoken:'{{ csrf_token }}',
+                action:'post'
+            },
+            success:function(json){
+                document.getElementById('cart-quantity').textContent = json.qty;
+                location.reload();
+            },
+            error:function(xhr, errmsg, err){
 
+            }
+        })
+    })
+</script>
 
 {% endblock %}

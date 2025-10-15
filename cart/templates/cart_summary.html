@@ -54,8 +54,8 @@
           </td>
           <td>{{ item.price }} تومان</td>
           <td>
-            <button class="btn btn-sm btn-outline-danger delete-item"
-                    data-product="{{ item.product.id }}">
+            <button type="button" class="btn btn-sm btn-outline-danger delete-product"
+            data-index="{{ item.id }}">
               حذف
             </button>
           </td>
@@ -98,6 +98,29 @@
             }
         })
     })
+
+
+        $(document).on('click','.delete-product', function(e){
+        e.preventDefault();
+
+        $.ajax({
+            type:'POST',
+            url:'{% url 'cart_delete' %}',
+            data:{
+                product_id: $(this).data('index'),
+                csrfmiddlewaretoken:'{{ csrf_token }}',
+                action:'post'
+            },
+            success:function(json){
+                document.getElementById('cart-quantity').textContent = json.qty;
+                location.reload();
+            },
+            error:function(xhr, errmsg, err){
+
+            }
+        })
+    })
+
 </script>
 
 {% endblock %}

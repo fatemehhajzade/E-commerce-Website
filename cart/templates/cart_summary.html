@@ -36,7 +36,11 @@
             <img src="{{ item.picture.url }}" width="90" height="60" class="rounded">
           </td>
           <td>{{ item.name }}</td>
-          <td>{{ item.price }} تومان</td>
+            {% if item.is_sale %}
+            <td>{{ item.sale_price }} تومان</td>
+            {% else %}
+            <td>{{ item.price }} تومان</td>
+            {% endif %}
           <td>
             <div class="d-flex justify-content-center align-items-center">
 
@@ -52,7 +56,13 @@
                       data-index="{{ item.id }}">ویرایش</button>
             </div>
           </td>
-          <td>{{ item.price }} تومان</td>
+          <td>
+              {% for key, total_price in product_totals.items %}
+                  {% if key == item.id %}
+                      {{ total_price }} تومان
+                  {% endif %}
+              {% endfor %}
+          </td>
           <td>
             <button type="button" class="btn btn-sm btn-outline-danger delete-product"
             data-index="{{ item.id }}">
@@ -64,6 +74,24 @@
       </tbody>
     </table>
   </div>
+  <!-- 🧾 بخش مجموع کل سفارش -->
+  <div class="row mt-4 justify-content-end">
+    <div class="col-md-5">
+      <div class="card shadow-sm border-success">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center pt-3">
+            <strong>💰 مجموع کل:</strong>
+            <strong class="text-success fs-5">{{ total }} تومان</strong>
+          </div>
+          <div class="mt-4 text-center">
+            <a href="#" class="btn btn-success px-4">ادامه فرایند خرید</a>
+            <a href="{% url 'home' %}" class="btn btn-outline-secondary px-4">بازگشت به فروشگاه</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
 <!--مجموع کل و ادامه فرایند خرید-->
 

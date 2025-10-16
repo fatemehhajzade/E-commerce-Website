@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<!-- 🖤 Header -->
+<header class="bg-dark py-5">
+  <div class="container px-4 px-lg-5 my-5 text-center text-white">
+    <h1 class="display-4 fw-bolder">دسته‌بندی محصولات 🛍️</h1>
+    <p class="lead fw-normal text-white-50 mb-0">
+      یکی از دسته‌بندی‌ها را انتخاب کنید تا محصولات آن را ببینید.
+    </p>
+  </div>
+</header>
+
+<!-- 📂 Category List -->
+<div class="container mt-5" dir="rtl">
+  {% if categories %}
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+    {% for category in categories %}
+    <div class="col">
+      <div class="card text-center border-0 shadow-sm h-100 category-card">
+        <div class="card-body">
+          <img class="card-img-top" src="{{ category.picture.url }}" alt="..." />
+          <h5 class="card-title text-dark mb-3">{{ category.name|title }}</h5>
+          <a href="#" class="btn btn-outline-dark">
+            مشاهده محصولات
+          </a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="alert alert-warning text-center mt-5">
+    😔 هیچ دسته‌بندی‌ای یافت نشد.
+  </div>
+  {% endif %}
+</div>
+
+<style>
+  .category-card:hover {
+    transform: translateY(-5px);
+    transition: 0.3s;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+</style>
+
+{% endblock %}

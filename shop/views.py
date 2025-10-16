@@ -6,6 +6,10 @@ from django.contrib.auth.models import User
 # from django import forms
 from django.contrib import messages
 
+def category_summary(request):
+    all_category = Category.objects.all()
+    return render(request, 'category_summary.html', {'categories':all_category})
+
 def helloworld(request):
     # return HttpResponse("<h1>سلام دنیا</h1>") 
 
@@ -65,6 +69,10 @@ def signup_user(request):
             return redirect("home")
 
     return render(request, "signup.html")
+
+
+def update_user(request):
+    return render(request, "update_user.html")
 
 def product(request,pk):
     product = Product.objects.get(id = pk)

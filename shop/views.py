@@ -1,7 +1,7 @@
 from django.shortcuts import render,HttpResponse,redirect
 
-from .forms import UpdateUserForm
-from .models import Product,Category
+from .forms import UpdateUserForm, UpdateUserInfoForm
+from .models import Product,Category, Profile
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 # from django.contrib.auth.forms import UserCreationForm
@@ -83,6 +83,19 @@ def update_user(request):
             messages.success(request, 'پروفایل شما ویرایش شد.')
             return redirect("home")
         return render(request, "update_user.html", {'user_form': user_form})
+    else:
+        messages.success(request, 'ابتدا باید وارد شوید.')
+        return redirect("home")
+
+def update_info(request):
+    if request.user.is_authenticated:
+        current_user = Profile.objects.get(user__id=request.user.id)
+        form = UpdateUserInfoForm(request.POST or None, instance=current_user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'اطلاعات کاربری شما ویرایش شد.')
+            return redirect("home")
+        return render(request, "update_info.html", {'form': form})
     else:
         messages.success(request, 'ابتدا باید وارد شوید.')
         return redirect("home")

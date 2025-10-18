@@ -3,7 +3,7 @@
 <div class="container px-4 px-lg-5 mt-5" dir="rtl">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <h2 class="text-center mb-4">ویرایش پروفایل کاربری</h2>
+            <h2 class="text-center mb-4">اطلاعات کاربری</h2>
 
             {% if messages %}
                 {% for message in messages %}
@@ -13,9 +13,9 @@
                 {% endfor %}
             {% endif %}
 
-            <form method="POST" action="{% url 'update_user' %}">
+            <form method="POST" action="{% url 'update_info' %}">
                 {% csrf_token %}
-                {{ user_form.as_p }}
+                {{ form.as_p }}
                 <div class="text-center mt-3">
                     <button type="submit" class="btn btn-dark w-100">ویرایش</button>
                 </div>
